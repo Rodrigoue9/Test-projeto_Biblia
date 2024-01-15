@@ -105,40 +105,57 @@ function atualizarMensagemDiaria() {
 var intervaloDeAtualizacao = 1000;
  setInterval(atualizarMensagemDiaria, intervaloDeAtualizacao);
 
- function mostrarNotificacao() {
-    // Verifica se o navegador suporta a API de Notificações
-    if (!("Notification" in window)) {
-      alert("Este navegador não suporta notificações!");
-    } else if (Notification.permission === "granted") {
-      // Se a permissão de notificação foi concedida, mostra a notificação
-      criarNotificacao();
-    } else if (Notification.permission !== "denied") {
-      // Caso contrário, solicita permissão ao usuário
-      Notification.requestPermission().then(function (permission) {
-        if (permission === "granted") {
-          criarNotificacao();
-        }
-      });
+
+function enviarNotificacao() {
+    if (Notification.permission === "granted") {
+        new Notification("Agora sim");
+    } else if (Notification.permission === "default") {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                new Notification("Agora não");
+            }
+        });
     }
-  }
+}
+
+// Chama a função enviarNotificacao a cada minuto (60.000 milissegundos)
+setInterval(enviarNotificacao, 5000);
+
+
+ // function mostrarNotificacao() {
+ //    // Verifica se o navegador suporta a API de Notificações
+ //    if (!("Notification" in window)) {
+ //      alert("Este navegador não suporta notificações!");
+ //    } else if (Notification.permission === "granted") {
+ //      // Se a permissão de notificação foi concedida, mostra a notificação
+ //      criarNotificacao();
+ //    } else if (Notification.permission !== "denied") {
+ //      // Caso contrário, solicita permissão ao usuário
+ //      Notification.requestPermission().then(function (permission) {
+ //        if (permission === "granted") {
+ //          criarNotificacao();
+ //        }
+ //      });
+ //    }
+ //  }
   
-  function criarNotificacao() {
-    // Cria uma nova instância de Notification
-    var notificacao = new Notification("Lembrete Diário", {
-      body: "Não se esqueça de realizar a tarefa hoje!",
-      icon: "/img/Sem Título-1bibi.png" // Substitua pelo caminho real do seu ícone
-    });
+ //  function criarNotificacao() {
+ //    // Cria uma nova instância de Notification
+ //    var notificacao = new Notification("Lembrete Diário", {
+ //      body: "Não se esqueça de realizar a tarefa hoje!",
+ //      icon: "/img/Sem Título-1bibi.png" // Substitua pelo caminho real do seu ícone
+ //    });
   
-    // Adiciona um evento de clique na notificação (opcional)
-    notificacao.onclick = function () {
-      alert("Notificação clicada!");
-    };
-  }
+ //    // Adiciona um evento de clique na notificação (opcional)
+ //    notificacao.onclick = function () {
+ //      alert("Notificação clicada!");
+ //    };
+ //  }
   
-  // Chama a função para mostrar a notificação quando a página carrega
-  mostrarNotificacao();
+ //  // Chama a função para mostrar a notificação quando a página carrega
+ //  mostrarNotificacao();
   
-  // Agenda a execução da função a cada 24 horas
-  setInterval(function () {
-    mostrarNotificacao();
-  },5000); // 24 horas em milissegundos
+ //  // Agenda a execução da função a cada 24 horas
+ //  setInterval(function () {
+ //    mostrarNotificacao();
+ //  },5000); // 24 horas em milissegundos
