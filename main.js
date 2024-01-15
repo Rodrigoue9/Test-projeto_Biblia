@@ -126,7 +126,7 @@ var intervaloDeAtualizacao = 1000;
     // Cria uma nova instância de Notification
     var notificacao = new Notification("Lembrete Diário", {
       body: "Não se esqueça de realizar a tarefa hoje!",
-      icon: "img/Sem Título-1bibi.png" // Substitua pelo caminho real do seu ícone
+      icon: "/img/Sem Título-1bibi.png" // Substitua pelo caminho real do seu ícone
     });
   
     // Adiciona um evento de clique na notificação (opcional)
